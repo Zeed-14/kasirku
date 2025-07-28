@@ -1,36 +1,34 @@
 import React, { useState } from 'react';
 
+// Daftar kategori yang bisa dipilih
+const categories = ['Kopi', 'Non-Kopi', 'Makanan Ringan', 'Makanan Berat', 'Kue & Roti', 'Lain-lain'];
+
 export const AddProductModal = ({ isOpen, onClose, onSave }) => {
-  // State untuk menyimpan data dari input form
   const [productData, setProductData] = useState({
     name: '',
     price: '',
     imageUrl: '',
+    category: categories[0], // Nilai default
   });
 
-  // Jika modal tidak terbuka, jangan render apa-apa
   if (!isOpen) return null;
 
-  // Fungsi untuk menangani perubahan pada input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProductData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  // Fungsi untuk menangani submit form
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validasi sederhana: pastikan nama dan harga tidak kosong
-    if (productData.name && productData.price) {
+    if (productData.name && productData.price && productData.category) {
       onSave({
         ...productData,
-        price: parseFloat(productData.price) // Ubah harga menjadi angka
+        price: parseFloat(productData.price)
       });
-      // Reset form dan tutup modal
-      setProductData({ name: '', price: '', imageUrl: '' });
+      setProductData({ name: '', price: '', imageUrl: '', category: categories[0] });
       onClose();
     } else {
-      alert("Nama Produk dan Harga tidak boleh kosong!");
+      alert("Nama, Harga, dan Kategori tidak boleh kosong!");
     }
   };
 
@@ -47,17 +45,22 @@ export const AddProductModal = ({ isOpen, onClose, onSave }) => {
             <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">Harga</label>
             <input type="number" name="price" id="price" value={productData.price} onChange={handleChange} className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" required />
           </div>
+          {/* --- INPUT KATEGORI BARU --- */}
+          <div className="mb-4">
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
+            <select name="category" id="category" value={productData.category} onChange={handleChange} className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+              {categories.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
           <div className="mb-4">
             <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 mb-1">URL Gambar (Opsional)</label>
             <input type="text" name="imageUrl" id="imageUrl" value={productData.imageUrl} onChange={handleChange} className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" />
           </div>
           <div className="flex justify-end gap-4 mt-6">
-            <button type="button" onClick={onClose} className="bg-gray-200 text-gray-800 rounded-lg py-2 px-4 hover:bg-gray-300">
-              Batal
-            </button>
-            <button type="submit" className="bg-blue-600 text-white rounded-lg py-2 px-4 hover:bg-blue-700">
-              Simpan
-            </button>
+            <button type="button" onClick={onClose} className="bg-gray-200 text-gray-800 rounded-lg py-2 px-4 hover:bg-gray-300">Batal</button>
+            <button type="submit" className="bg-blue-600 text-white rounded-lg py-2 px-4 hover:bg-blue-700">Simpan</button>
           </div>
         </form>
       </div>
