@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { Toaster } from 'react-hot-toast'; // Impor Toaster
+import { Toaster } from 'react-hot-toast';
 import { Header } from './components/Header';
 import { BottomNav } from './components/BottomNav';
-import { DebugConsole } from './components/DebugConsole';
-import { 
-  HomePage, 
-  CashierPage, 
-  ReportPage, 
-  ManagementPage, 
-  SettingsPage 
-} from './pages';
+// Hapus import DebugConsole jika masih ada
+
+// Impor setiap halaman dari filenya masing-masing
+import { HomePage } from './pages/HomePage';
+import { CashierPage } from './pages/CashierPage';
+import { ReportPage } from './pages/ReportPage';
+import { ManagementPage } from './pages/ManagementPage';
+import { SettingsPage } from './pages/SettingsPage';
 
 function App() {
-  const [activeMenu, setActiveMenu] = useState('Beranda');
+  const [activeMenu, setActiveMenu] = useState('Kasir'); // Default ke Kasir
 
   const renderPage = () => {
     switch (activeMenu) {
@@ -27,7 +27,6 @@ function App() {
 
   return (
     <>
-      {/* Komponen Toaster untuk menampilkan notifikasi */}
       <Toaster 
         position="top-center"
         reverseOrder={false}
@@ -40,8 +39,6 @@ function App() {
         }}
       />
       
-      <DebugConsole />
-
       <div className="bg-gray-50 font-sans h-screen flex flex-col">
         <Header />
         <main className="flex-grow overflow-y-auto pb-20">

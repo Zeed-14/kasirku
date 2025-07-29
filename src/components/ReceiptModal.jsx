@@ -17,13 +17,15 @@ export const ReceiptModal = ({ isOpen, onClose, transactionDetails }) => {
   if (!isOpen || !transactionDetails) return null;
 
   // --- PERBAIKAN UTAMA ADA DI SINI ---
-  // Kita ubah nama variabel agar cocok dengan data dari Supabase
+  // Kita ganti nama variabel agar cocok dengan data terbaru dari Supabase
   const {
     items,
-    total_price, // Sebelumnya: totalPrice
+    subtotal,
+    discount_amount,
+    final_price, // Sebelumnya: total_price (salah)
     amountPaid,
     change,
-    created_at, // Sebelumnya: timestamp
+    created_at,
   } = transactionDetails;
 
   const handlePrint = () => {
@@ -43,11 +45,10 @@ export const ReceiptModal = ({ isOpen, onClose, transactionDetails }) => {
       </style>
       <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4">
         <div className="w-full max-w-sm bg-gray-100 rounded-lg p-4">
-          <div id="receipt-section" className="bg-white p-6">
+          <div id="receipt-section" className="bg-white p-6 font-mono">
             <div className="text-center">
               <h2 className="text-xl font-bold">POS-Ku</h2>
               <p className="text-xs">Jl. Aplikasi No. 123, Kota Koding</p>
-              {/* Gunakan variabel yang sudah diperbaiki */}
               <p className="text-xs mb-4">{formatDateTime(created_at)}</p>
             </div>
             <div className="border-t border-b border-dashed border-gray-400 my-2 py-2">
@@ -61,10 +62,16 @@ export const ReceiptModal = ({ isOpen, onClose, transactionDetails }) => {
                 </div>
               ))}
             </div>
-            <div className="flex justify-between font-semibold">
+            <div className="text-sm mt-2">
+              <div className="flex justify-between"><p>Subtotal</p><p>{formatCurrency(subtotal)}</p></div>
+              {discount_amount > 0 && (
+                <div className="flex justify-between"><p>Diskon</p><p>- {formatCurrency(discount_amount)}</p></div>
+              )}
+            </div>
+            <div className="flex justify-between font-bold border-t border-dashed border-gray-400 mt-2 pt-2">
               <p>TOTAL</p>
               {/* Gunakan variabel yang sudah diperbaiki */}
-              <p>{formatCurrency(total_price)}</p>
+              <p>{formatCurrency(final_price)}</p>
             </div>
             <div className="flex justify-between text-sm mt-2">
               <p>Tunai</p>

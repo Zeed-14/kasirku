@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { UploadIcon, PackageIcon, RupiahIcon, CategoryIcon, StockIcon, BarcodeIcon } from './icons';
 
 const categories = ['Kopi', 'Non-Kopi', 'Makanan Ringan', 'Makanan Berat', 'Kue & Roti', 'Lain-lain'];
 
 export const AddProductModal = ({ isOpen, onClose, onSave, initialBarcode = '' }) => {
-  const [productData, setProductData] = useState({
-    name: '',
-    price: '',
-    category: categories[0],
-    barcode: '',
-  });
-  // State baru untuk menampung file gambar yang dipilih
+  const [productData, setProductData] = useState({ name: '', price: '', category: categories[0], barcode: '', stock: '' });
   const [imageFile, setImageFile] = useState(null);
-  // State baru untuk URL pratinjau gambar
   const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
     if (isOpen) {
-      setProductData({
-        name: '',
-        price: '',
-        category: categories[0],
-        barcode: initialBarcode,
-      });
-      // Reset state gambar saat modal dibuka
+      setProductData({ name: '', price: '', category: categories[0], barcode: initialBarcode, stock: '0' });
       setImageFile(null);
       setPreviewUrl(null);
     }
@@ -35,12 +23,10 @@ export const AddProductModal = ({ isOpen, onClose, onSave, initialBarcode = '' }
     setProductData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  // Fungsi untuk menangani saat pengguna memilih file gambar
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      // Buat URL sementara untuk pratinjau
       setPreviewUrl(URL.createObjectURL(file));
     }
   };
@@ -48,7 +34,6 @@ export const AddProductModal = ({ isOpen, onClose, onSave, initialBarcode = '' }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (productData.name && productData.price && productData.category) {
-      // Kirim data produk DAN file gambar ke fungsi onSave
       onSave(productData, imageFile);
       onClose();
     } else {
@@ -57,37 +42,63 @@ export const AddProductModal = ({ isOpen, onClose, onSave, initialBarcode = '' }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-center items-center">
-      <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md m-4">
-        <h2 className="text-xl font-bold mb-4">Tambah Produk Baru</h2>
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-center items-center p-4 animate-fade-in">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg animate-scale-in overflow-hidden">
+        <h2 className="text-xl font-bold p-6 bg-gray-50 border-b">Tambah Produk Baru</h2>
         <form onSubmit={handleSubmit}>
-          {/* --- Input Gambar Baru --- */}
-          <div className="mb-4">
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">Gambar Produk</label>
-            {previewUrl && <img src={previewUrl} alt="Pratinjau" className="w-32 h-32 object-cover rounded-md mb-2" />}
-            <input type="file" name="image" id="image" accept="image/*" onChange={handleImageChange} className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+          <div className="p-6 max-h-[70vh] overflow-y-auto">
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Gambar Produk</label>
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div className="space-y-1 text-center">
+                  {previewUrl ? (
+                    <img src={previewUrl} alt="Pratinjau" className="mx-auto h-24 w-24 object-cover rounded-md" />
+                  ) : (
+                    <UploadIcon className="mx-auto h-12 w-12 text-gray-400" />
+                  )}
+                  <div className="flex text-sm text-gray-600">
+                    <label htmlFor="image-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500">
+                      <span>Unggah file</span>
+                      <input id="image-upload" name="image-upload" type="file" className="sr-only" accept="image/*" onChange={handleImageChange} />
+                    </label>
+                    <p className="pl-1">atau seret dan lepas</p>
+                  </div>
+                  <p className="text-xs text-gray-500">PNG, JPG, GIF hingga 10MB</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative mb-4">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3"><PackageIcon className="h-5 w-5 text-gray-400" /></span>
+              <input type="text" name="name" placeholder="Nama Produk" value={productData.name} onChange={handleInputChange} className="w-full pl-10 p-2 border border-gray-300 rounded-md" required autoFocus />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3"><RupiahIcon className="h-5 w-5 text-gray-400" /></span>
+                <input type="number" name="price" placeholder="Harga" value={productData.price} onChange={handleInputChange} className="w-full pl-10 p-2 border border-gray-300 rounded-md" required />
+              </div>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3"><StockIcon className="h-5 w-5 text-gray-400" /></span>
+                <input type="number" name="stock" placeholder="Stok" value={productData.stock} onChange={handleInputChange} className="w-full pl-10 p-2 border border-gray-300 rounded-md" required />
+              </div>
+            </div>
+
+            <div className="relative mb-4">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3"><CategoryIcon className="h-5 w-5 text-gray-400" /></span>
+              <select name="category" value={productData.category} onChange={handleInputChange} className="w-full pl-10 p-2 border border-gray-300 rounded-md">
+                {categories.map(cat => (<option key={cat} value={cat}>{cat}</option>))}
+              </select>
+            </div>
+
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3"><BarcodeIcon className="h-5 w-5 text-gray-400" /></span>
+              <input type="text" name="barcode" placeholder="Barcode (opsional)" value={productData.barcode} onChange={handleInputChange} className="w-full pl-10 p-2 border border-gray-300 rounded-md bg-gray-50" readOnly={!!initialBarcode} />
+            </div>
           </div>
-          <div className="mb-4">
-            <label htmlFor="barcode" className="block text-sm font-medium text-gray-700 mb-1">Barcode</label>
-            <input type="text" name="barcode" value={productData.barcode} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm bg-gray-100" readOnly={!!initialBarcode} />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nama Produk</label>
-            <input type="text" name="name" value={productData.name} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm" required autoFocus />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">Harga</label>
-            <input type="number" name="price" value={productData.price} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm" required />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
-            <select name="category" value={productData.category} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm">
-              {categories.map(cat => (<option key={cat} value={cat}>{cat}</option>))}
-            </select>
-          </div>
-          <div className="flex justify-end gap-4 mt-6">
-            <button type="button" onClick={onClose} className="bg-gray-200 text-gray-800 rounded-lg py-2 px-4 hover:bg-gray-300">Batal</button>
-            <button type="submit" className="bg-blue-600 text-white rounded-lg py-2 px-4 hover:bg-blue-700">Simpan</button>
+          <div className="flex justify-end gap-4 p-6 bg-gray-50 border-t">
+            <button type="button" onClick={onClose} className="bg-gray-200 text-gray-800 rounded-lg py-2 px-5 hover:bg-gray-300">Batal</button>
+            <button type="submit" className="bg-blue-600 text-white rounded-lg py-2 px-5 hover:bg-blue-700">Simpan</button>
           </div>
         </form>
       </div>
