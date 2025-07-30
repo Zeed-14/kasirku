@@ -1,20 +1,31 @@
 import React from 'react';
 
-// Tambahkan prop 'onClick' dan ubah div menjadi button
-export const ReportSummaryCard = ({ title, value, icon, onClick }) => {
+// Tambahkan prop 'color' untuk kustomisasi
+export const ReportSummaryCard = ({ title, value, icon, onClick, color = 'blue' }) => {
   const Tag = onClick ? 'button' : 'div';
+
+  // Definisikan tema warna berdasarkan prop
+  const colorThemes = {
+    blue: { bg: 'bg-blue-100', text: 'text-blue-600' },
+    green: { bg: 'bg-green-100', text: 'text-green-600' },
+    yellow: { bg: 'bg-yellow-100', text: 'text-yellow-600' },
+    purple: { bg: 'bg-purple-100', text: 'text-purple-600' },
+    red: { bg: 'bg-red-100', text: 'text-red-600' },
+  };
+
+  const theme = colorThemes[color] || colorThemes.blue;
 
   return (
     <Tag 
       onClick={onClick} 
-      className={`bg-white p-4 rounded-lg shadow-sm flex items-center w-full text-left ${onClick ? 'cursor-pointer hover:bg-gray-50 transition-colors' : ''}`}
+      className={`bg-white p-4 rounded-xl shadow-sm flex items-center w-full text-left transition-all duration-300 ${onClick ? 'cursor-pointer hover:shadow-md hover:-translate-y-1' : ''}`}
     >
-      <div className="bg-blue-100 text-blue-600 p-3 rounded-full mr-4">
-        {icon}
+      <div className={`p-3 rounded-lg mr-4 ${theme.bg}`}>
+        <div className={theme.text}>{icon}</div>
       </div>
-      <div>
-        <p className="text-sm text-gray-500">{title}</p>
-        <p className="text-2xl font-bold text-gray-800 truncate">{value}</p>
+      <div className="overflow-hidden">
+        <p className="text-sm text-gray-500 font-medium">{title}</p>
+        <p className="text-xl sm:text-2xl font-bold text-gray-800 truncate">{value}</p>
       </div>
     </Tag>
   );

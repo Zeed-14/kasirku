@@ -140,3 +140,49 @@ export const SwitchVerticalIcon = ({ className }) => (
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
   </svg>
 );
+
+// --- TAMBAHKAN IKON INI ---
+export const ReturnIcon = ({ className }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+  </svg>
+);
+
+
+// --- TAMBAHKAN IKON INI ---
+export const ArchiveBoxXMarkIcon = ({ className }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.03 1.125 0 1.131.094 1.976 1.057 1.976 2.192V7.5M8.25 7.5h7.5m-7.5 0l-1 10.5a1.5 1.5 0 001.5 1.5h7.5a1.5 1.5 0 001.5-1.5l-1-10.5m-7.5 0V6.375c0-1.125.6-2.062 1.5-2.25m7.5 0V6.375c0-1.125-.6-2.062-1.5-2.25M3 7.5h18M10.5 12l3 3m0-3l-3 3" />
+  </svg>
+);
+
+// --- TAMBAHKAN IKON INI ---
+export const MenuIcon = ({ className }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+);
+
+// --- TAMBAHKAN IKON INI ---
+export const MergeIcon = ({ className }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-4.5 0V6.75A2.25 2.25 0 0115.75 4.5h1.5a2.25 2.25 0 012.25 2.25v1.5m-4.5 0h4.5m-4.5 0a2.25 2.25 0 01-2.25-2.25V6.75m0 0a2.25 2.25 0 00-2.25-2.25h-1.5A2.25 2.25 0 005.25 6.75v1.5" />
+  </svg>
+);
+
+// --- TAMBAHKAN IKON-IKON INI ---
+export const StoreIcon = ({ className }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.25a.75.75 0 01-.75-.75v-7.5a.75.75 0 01.75-.75h7.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75H13.5m0-16.5h-1.5a1.5 1.5 0 00-1.5 1.5v1.5m1.5-1.5h1.5a1.5 1.5 0 011.5 1.5v1.5m0 0H16.5m-3 0h3m-3 0H8.25m0 0H5.25M5.25 5.25V3.75a1.5 1.5 0 011.5-1.5h1.5a1.5 1.5 0 011.5 1.5v1.5m-3 0h3" />
+  </svg>
+);
+export const ReceiptIcon = ({ className }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+  </svg>
+);
+export const DatabaseIcon = ({ className }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-12A2.25 2.25 0 013.75 8.25V6zM3.75 15A2.25 2.25 0 016 12.75h12A2.25 2.25 0 0120.25 15v2.25A2.25 2.25 0 0118 19.5h-12A2.25 2.25 0 013.75 17.25V15z" />
+  </svg>
+);
