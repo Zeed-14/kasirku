@@ -1,9 +1,8 @@
 import React from 'react';
-// Impor semua ikon dari satu file untuk kebersihan kode
-import { HomeIcon, CashierIcon, ReportIcon, ManagementIcon, SettingsIcon } from './icons';
+// Path diperbaiki: naik satu level dari 'layout' untuk menemukan 'icons'
+import { HomeIcon, CashierIcon, ReportIcon, ManagementIcon, SettingsIcon } from '../icons';
 
 export const BottomNav = ({ activeMenu, setActiveMenu }) => {
-  // Daftar item menu untuk navigasi
   const menuItems = [
     { name: 'Beranda', icon: HomeIcon },
     { name: 'Kasir', icon: CashierIcon },
@@ -24,12 +23,8 @@ export const BottomNav = ({ activeMenu, setActiveMenu }) => {
               onClick={() => setActiveMenu(item.name)}
               className="flex flex-col items-center justify-center w-full pt-2 pb-1 text-center transition-colors duration-200 focus:outline-none"
             >
-              <IconComponent 
-                className={`h-6 w-6 mb-1 ${isActive ? 'text-blue-600' : 'text-gray-500'}`} 
-              />
-              <span className={`text-xs ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-600'}`}>
-                {item.name}
-              </span>
+              <IconComponent className={`h-6 w-6 mb-1 ${isActive ? 'text-blue-600' : 'text-gray-500'}`} />
+              <span className={`text-xs ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-600'}`}>{item.name}</span>
             </button>
           );
         })}

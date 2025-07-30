@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { Header } from './components/Header';
-import { BottomNav } from './components/BottomNav';
-// Hapus import DebugConsole jika masih ada
+// Path impor diperbarui ke folder 'layout'
+import { Header } from './components/layout/Header';
+import { BottomNav } from './components/layout/BottomNav';
 
-// Impor setiap halaman dari filenya masing-masing
+// Path impor halaman tidak berubah, sudah benar
 import { HomePage } from './pages/HomePage';
 import { CashierPage } from './pages/CashierPage';
 import { ReportPage } from './pages/ReportPage';
@@ -12,7 +12,7 @@ import { ManagementPage } from './pages/ManagementPage';
 import { SettingsPage } from './pages/SettingsPage';
 
 function App() {
-  const [activeMenu, setActiveMenu] = useState('Kasir'); // Default ke Kasir
+  const [activeMenu, setActiveMenu] = useState('Kasir');
 
   const renderPage = () => {
     switch (activeMenu) {

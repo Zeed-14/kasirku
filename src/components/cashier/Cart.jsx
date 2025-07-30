@@ -1,7 +1,7 @@
 // File: src/components/Cart.jsx
 
 import React from 'react';
-import { TrashIcon, TagIcon } from './icons';
+import { TrashIcon, TagIcon } from '../icons';
 
 export const Cart = ({ items, onUpdateQuantity, onClose, onPay, subtotal, discountAmount, finalPrice, onAddDiscount, onRemoveDiscount, discount }) => {
   return (

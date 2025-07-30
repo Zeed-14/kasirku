@@ -1,5 +1,6 @@
 import React from 'react';
-import { AlertIcon } from './icons';
+// Path diperbaiki: naik satu level dari 'common' untuk menemukan 'icons'
+import { AlertIcon } from '../icons';
 
 export const ConfirmModal = ({ isOpen, onClose, onConfirm, title, message }) => {
   if (!isOpen) return null;
